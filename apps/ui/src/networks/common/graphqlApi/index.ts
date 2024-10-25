@@ -664,6 +664,9 @@ export function createApi(
     },
     loadStrategy: async () => {
       return null;
+    },
+    getNetworksUsage: async () => {
+      return {};
     }
   };
 }

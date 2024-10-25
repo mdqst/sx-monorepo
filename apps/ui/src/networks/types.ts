@@ -321,6 +321,7 @@ export type NetworkApi = {
   ): Promise<Statement[]>;
   loadStrategies(): Promise<StrategyTemplate[]>;
   loadStrategy(address: string): Promise<StrategyTemplate | null>;
+  getNetworksUsage(): Promise<Record<ChainId, number | undefined>>;
 };
 
 export type NetworkConstants = {
