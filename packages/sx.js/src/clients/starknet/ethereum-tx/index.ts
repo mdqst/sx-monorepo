@@ -221,7 +221,8 @@ export class EthereumTx {
     return fees as any;
   }
 
-  async estimateProposeFee(address: string, data: Propose) {
+  async estimateProposeFee(signer: Signer, data: Propose) {
+    const address = await signer.getAddress();
     const hash = await this.getProposeHash(address, data);
 
     return this.getMessageFee(data.authenticator, [
@@ -230,7 +231,8 @@ export class EthereumTx {
     ]);
   }
 
-  async estimateVoteFee(address: string, data: Vote) {
+  async estimateVoteFee(signer: Signer, data: Vote) {
+    const address = await signer.getAddress();
     const hash = await this.getVoteHash(address, data);
 
     return this.getMessageFee(data.authenticator, [
@@ -239,7 +241,8 @@ export class EthereumTx {
     ]);
   }
 
-  async estimateUpdateProposalFee(address: string, data: UpdateProposal) {
+  async estimateUpdateProposalFee(signer: Signer, data: UpdateProposal) {
+    const address = await signer.getAddress();
     const hash = await this.getUpdateProposalHash(address, data);
 
     return this.getMessageFee(data.authenticator, [
@@ -328,7 +331,7 @@ export class EthereumTx {
 
     const address = await signer.getAddress();
     const hash = await this.getProposeHash(address, data);
-    const { overall_fee } = await this.estimateProposeFee(address, data);
+    const { overall_fee } = await this.estimateProposeFee(signer, data);
 
     const promise = commitContract.commit(data.authenticator, hash, {
       value: overall_fee,
@@ -360,7 +363,7 @@ export class EthereumTx {
 
     const address = await signer.getAddress();
     const hash = await this.getVoteHash(address, data);
-    const { overall_fee } = await this.estimateVoteFee(address, data);
+    const { overall_fee } = await this.estimateVoteFee(signer, data);
 
     const promise = commitContract.commit(data.authenticator, hash, {
       value: overall_fee,
@@ -392,7 +395,7 @@ export class EthereumTx {
 
     const address = await signer.getAddress();
     const hash = await this.getUpdateProposalHash(address, data);
-    const { overall_fee } = await this.estimateUpdateProposalFee(address, data);
+    const { overall_fee } = await this.estimateUpdateProposalFee(signer, data);
 
     const promise = commitContract.commit(data.authenticator, hash, {
       value: overall_fee,
