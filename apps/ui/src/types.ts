@@ -62,9 +62,8 @@ export type SelectedStrategy = {
 
 export type SpaceMetadataTreasury = {
   name: string;
-  network: Exclude<NetworkID, 's' | 's-tn'> | null;
   address: string;
-  chainId?: ChainId | null;
+  chainId: ChainId | null;
 };
 
 export type SpaceMetadataLabel = {
@@ -218,9 +217,8 @@ export type ProposalExecution = {
   strategyType: string;
   safeName: string;
   safeAddress: string;
-  networkId: NetworkID;
   transactions: Transaction[];
-  chainId?: number;
+  chainId: ChainId;
 };
 
 export type Proposal = {
